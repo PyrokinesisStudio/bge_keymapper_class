@@ -40,10 +40,10 @@ for JOYID in range(len(logic.joysticks)):
 			events.JOYBUTTONS[JOYID]["Axis"][AXIS] = {"NEG":0, "POS":0, "SLIDER":0, "VALUE":0.0}
 
 
-print("Input.py Imported")
+print("input.py Imported")
 
 
-class KEYBASE:
+class KeyBase:
 
 	def __init__(self, ID, SIMPLE, KEY, DEVICE, SHIFT=None, CTRL=None, ALT=None, JOYINDEX=0, JOYBUTTON=None, JOYAXIS=None, JOYAXISTYPE=("POS", "A")):
 
@@ -229,14 +229,14 @@ class KEYBASE:
 
 		return 0.0
 
-class MOUSELOOK:
+class MouseLook:
 
-	def __init__(self, ID, SIMPLE, KEY, DEVICE):
-		self.id = ID
-		self.simple_name = SIMPLE
-		self.input = KEY
-		self.device_name = DEVICE
-		self.input_name = "MOUSEPOS"
+	def __init__(self, SPEED):
+		self.id = "000.M"
+		self.simple_name = "Mouse Speed"
+		self.input = SPEED
+		self.device_name = "Mouse"
+		self.input_name = "MOUSELOOK"
 		SCREEN = [render.getWindowWidth(), render.getWindowHeight()]
 		self.ratio = SCREEN[1]/SCREEN[0]
 		self.smoothing = int(10)
@@ -244,10 +244,8 @@ class MOUSELOOK:
 		self.OLD_Y = [0]*self.smoothing
 		self.interp = True
 
-	def update(self,NEWKEY,NEWDEVICE=None):
+	def update(self, NEWKEY):
 		self.input = NEWKEY
-		if NEWDEVICE != None:
-			self.device_name = NEWDEVICE
 
 	def center(self):
 		self.OLD_X = [0]*self.smoothing
@@ -255,7 +253,7 @@ class MOUSELOOK:
 
 		logic.mouse.position = (0.5, 0.5)
 
-	def active(self):
+	def axis(self):
 
 		RAW_X, RAW_Y = logic.mouse.position
 
