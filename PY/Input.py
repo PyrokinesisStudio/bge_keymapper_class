@@ -62,12 +62,9 @@ class KEYBASE:
 
 		self.id = ID
 		self.simple_name = SIMPLE
-		self.input = KEY
-		self.device_name = DEVICE
-		self.input_name = events.EventToString(KEY)
-		self.modifiers = {"S":SHIFT, "C":CTRL, "A":ALT}
 		self.isWheel = False
-		self.autoDevice()
+		self.update(KEY, DEVICE)
+		self.modifiers = {"S":SHIFT, "C":CTRL, "A":ALT}
 		self.gamepad = {"Index":JOYINDEX, "Button":JOYBUTTON, "Axis":JOYAXIS, "Type":JOYAXISTYPE}
 
 	def update(self, NEWKEY, NEWDEVICE=None):
