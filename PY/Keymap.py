@@ -27,6 +27,10 @@ from bge import logic, events
 import PYTHON.Input as input
 
 
+# Update Joysticks !HACKY!
+# This needs to be called again when scene replaced or removed
+logic.getCurrentScene().pre_draw.append(input.GAMEPADDER)
+
 # Change Exit Key
 logic.setExitKey(events.PAUSEKEY)
 
