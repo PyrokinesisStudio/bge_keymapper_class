@@ -91,7 +91,18 @@ class KEYBASE:
 			if self.input == events.WHEELDOWNMOUSE or self.input == events.WHEELUPMOUSE:
 				self.isWheel = True
 
+	def sceneGamepadCheck(self):
+		if GAMEPADDER not in logic.getSceneList()[0].pre_draw:
+			print("WARNING: GAMEPADDER() Scene Fix")
+			logic.getSceneList()[0].pre_draw.append(GAMEPADDER)
+			return False
+
+		return True
+
 	def checkInput(self, INPUT):
+		if self.sceneGamepadCheck() == False:
+			return False
+
 		JOYID = self.gamepad["Index"]
 		BUTID = self.gamepad["Button"]
 		AXIS = self.gamepad["Axis"]
@@ -193,6 +204,9 @@ class KEYBASE:
 		return False
 
 	def axis(self):
+		if self.sceneGamepadCheck() == False:
+			return 0.0
+
 		JOYID = self.gamepad["Index"]
 		AXIS = self.gamepad["Axis"]
 		TYPE = self.gamepad["Type"]
