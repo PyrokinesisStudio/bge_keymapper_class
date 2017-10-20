@@ -90,7 +90,7 @@ class KeyBase:
 
 	def sceneGamepadCheck(self):
 		if GAMEPADDER not in logic.getSceneList()[0].pre_draw:
-			print("WARNING: GAMEPADDER() Scene Fix")
+			print("WARNING: GAMEPADDER() Scene Fix -", logic.getSceneList()[0].name)
 			logic.getSceneList()[0].pre_draw.append(GAMEPADDER)
 			return False
 
@@ -231,21 +231,15 @@ class KeyBase:
 
 class MouseLook:
 
-	def __init__(self, SPEED):
-		self.id = "000.M"
-		self.simple_name = "Mouse Speed"
-		self.input = SPEED
-		self.device_name = "Mouse"
-		self.input_name = "MOUSELOOK"
-		SCREEN = [render.getWindowWidth(), render.getWindowHeight()]
-		self.ratio = SCREEN[1]/SCREEN[0]
-		self.smoothing = int(10)
-		self.OLD_X = [0]*self.smoothing
-		self.OLD_Y = [0]*self.smoothing
-		self.interp = True
+	def __init__(self, SPEED, SMOOTH=10):
+		self.ratio = render.getWindowHeight()/render.getWindowWidth()
+		self.update(SPEED, SMOOTH)
+		self.center()
 
-	def update(self, NEWKEY):
-		self.input = NEWKEY
+	def update(self, SPEED, SMOOTH=None):
+		self.input = SPEED
+		if SMOOTH != None:
+			self.smoothing = int(SMOOTH)
 
 	def center(self):
 		self.OLD_X = [0]*self.smoothing
@@ -257,7 +251,7 @@ class MouseLook:
 
 		RAW_X, RAW_Y = logic.mouse.position
 
-		if self.interp == True and self.smoothing > 1:
+		if self.smoothing > 1:
 			NEW_X = (0.5-RAW_X)*2
 			NEW_Y = (0.5-RAW_Y)*2
 

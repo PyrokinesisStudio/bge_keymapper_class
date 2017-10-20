@@ -38,8 +38,7 @@ print("Exit Key Changed: [events.PAUSEKEY]")
 
 ## LOAD KEYBINDS ##
 ## These Binds were pulled right out of my project.  Gamepad set up for blender 2.74 xbox 360 controller ##
-MOUSELOOK = input.MouseLook(5),
-
+MOUSELOOK = input.MouseLook(5, SMOOTH=10)
 BINDS = {
 
 ## Global ##
@@ -111,5 +110,5 @@ BINDS = {
 
 }
 
-print("Keymap.py Imported")
+print("keymap.py Imported")
 
