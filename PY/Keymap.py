@@ -24,7 +24,7 @@
 
 from bge import logic, events
 
-import PYTHON.Input as input
+import PY.Input as input #assume we live in the PY folder
 
 
 # Update Joysticks !HACKY!
