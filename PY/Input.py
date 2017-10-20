@@ -4,6 +4,7 @@
 from bge import logic, events, render
 
 
+## Find Available Gamepads ##
 events.JOYBUTTONS = {}
 
 for JOYID in range(len(logic.joysticks)):
