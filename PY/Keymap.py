@@ -13,7 +13,7 @@ print("Exit Key Changed: [events.PAUSEKEY]")
 
 
 ## LOAD KEYBINDS ##
-
+## These Binds were pulled right out of my project.  Gamepad set up for blender 2.74 xbox 360 controller ##
 KEY = {
 
 ## Global ##
