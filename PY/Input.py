@@ -63,9 +63,9 @@ class KEYBASE:
 		self.id = ID
 		self.simple_name = SIMPLE
 		self.isWheel = False
-		self.update(KEY, DEVICE)
 		self.modifiers = {"S":SHIFT, "C":CTRL, "A":ALT}
 		self.gamepad = {"Index":JOYINDEX, "Button":JOYBUTTON, "Axis":JOYAXIS, "Type":JOYAXISTYPE}
+		self.update(KEY, DEVICE)
 
 	def update(self, NEWKEY, NEWDEVICE=None):
 		self.input = NEWKEY
