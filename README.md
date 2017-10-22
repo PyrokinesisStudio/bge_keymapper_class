@@ -12,7 +12,7 @@ Simple class based keymapper for the Blender Game Engine with Gamepad support.  
 `if keys.BINDS["PLR_FORWARD"].active() == True:`  
 
 ---
-### Extras Folder
+### Extras Folder:
 
 `gamepad_finder.blend`: a quick little utility to find joystick button and axis IDs to reference in binds.  change the ["ID"] game property to get logic.joysticks[ID].  multiple joysticks can be examined by creating any number of objects that run the "Text" script with different "ID" property (copy the camera).
 
