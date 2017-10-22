@@ -4,12 +4,12 @@ Simple class based keymapper for the Blender Game Engine with Gamepad support.  
 ---
 ### Example:
 
-`import bge`
-`import PY.keymap as keys #this line can change depending on where the files are in relation to the blend.`
+`import bge`  
+`import PY.keymap as keys` (this line can change depending on where the files are in relation to the blend.)  
 
-`x, y = keys.MOUSELOOK.axis()`
+`x, y = keys.MOUSELOOK.axis()`  
 
-`if keys.BINDS["PLR_FORWARD"].active() == True:`
+`if keys.BINDS["PLR_FORWARD"].active() == True:`  
 
 ---
 ### Extras Folder
