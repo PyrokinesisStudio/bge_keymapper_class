@@ -52,7 +52,7 @@ class KeyBase:
 		## Catch Failures ##
 		if JOYINDEX >= len(logic.joysticks):
 			JOYINDEX = None
-		elif logic.joysticks[JOYINDEX] == None or KEY == None:
+		elif logic.joysticks[JOYINDEX] == None or KEY == "NONE":
 			JOYINDEX = None
 		else:
 			if JOYAXIS != None:
