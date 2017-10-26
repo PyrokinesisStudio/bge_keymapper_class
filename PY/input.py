@@ -45,7 +45,9 @@ print("input.py Imported")
 
 class KeyBase:
 
-	def __init__(self, ID, SIMPLE, KEY, DEVICE, SHIFT=None, CTRL=None, ALT=None, JOYINDEX=0, JOYBUTTON=None, JOYAXIS=None, JOYAXISTYPE=("POS", "A")):
+	GROUP = "Default"
+
+	def __init__(self, ID, KEY, SIMPLE, JOYINDEX=0, JOYBUTTON=None, JOYAXIS=(None, "POS", "A"), SHIFT=None, CTRL=None, ALT=None):
 
 		## Catch Failures ##
 		if JOYINDEX >= len(logic.joysticks):
@@ -62,35 +64,41 @@ class KeyBase:
 
 		self.id = ID
 		self.simple_name = SIMPLE
-		self.isWheel = False
 		self.modifiers = {"S":SHIFT, "C":CTRL, "A":ALT}
-		self.gamepad = {"Index":JOYINDEX, "Button":JOYBUTTON, "Axis":JOYAXIS, "Type":JOYAXISTYPE}
-		self.update(KEY, DEVICE)
+		self.gamepad = {"Index":JOYINDEX, "Button":JOYBUTTON, "Axis":JOYAXIS[0], "Type":(JOYAXIS[1], JOYAXIS[2])}
+		self.update(KEY)
 
-	def update(self, NEWKEY, NEWDEVICE=None):
-		self.input = NEWKEY
-		if NEWDEVICE != None:
-			self.device_name = NEWDEVICE
-		if NEWKEY != None:
-			self.input_name = events.EventToString(self.input)
+	def update(self, NEWKEY):
+		self.input_name = NEWKEY
+
+		if NEWKEY != "NONE":
+			self.input = getattr(events, self.input_name)
 		else:
-			self.input_name = "NONE"
+			self.input = None
 			self.gamepad["Index"] = None
+
 		self.autoDevice()
 
 	def autoDevice(self):
-		if self.device_name == "Keyboard":
+		if self.input == None:
 			self.device = logic.keyboard
+			self.isWheel = False
 
-		elif self.device_name == "Mouse":
+		elif self.input_name in ["LEFTMOUSE", "MIDDLEMOUSE", "RIGHTMOUSE"]:
 			self.device = logic.mouse
+			self.isWheel = False
 
-			if self.input == events.WHEELDOWNMOUSE or self.input == events.WHEELUPMOUSE:
-				self.isWheel = True
+		elif self.input_name in ["WHEELDOWNMOUSE", "WHEELUPMOUSE", "MOUSEX", "MOUSEY"]:
+			self.device = logic.mouse
+			self.isWheel = True
+
+		else:
+			self.device = logic.keyboard
+			self.isWheel = False
 
 	def sceneGamepadCheck(self):
 		if GAMEPADDER not in logic.getSceneList()[0].pre_draw:
-			print("WARNING: GAMEPADDER() Scene Fix -", logic.getSceneList()[0].name)
+			print("NOTICE: GAMEPADDER() Scene Fix -", logic.getSceneList()[0].name)
 			logic.getSceneList()[0].pre_draw.append(GAMEPADDER)
 			return False
 
@@ -129,9 +137,13 @@ class KeyBase:
 				if self.device.events[self.input] == INPUT:
 					KEY = True
 
-				if self.isWheel == True and INPUT == logic.KX_INPUT_JUST_ACTIVATED:
-					if self.device.events[self.input] == logic.KX_INPUT_ACTIVE:
-						KEY = True
+				if self.isWheel == True:
+					if INPUT == logic.KX_INPUT_JUST_ACTIVATED:
+						if self.device.events[self.input] == logic.KX_INPUT_ACTIVE:
+							KEY = True
+					if INPUT == logic.KX_INPUT_ACTIVE:
+						if self.device.events[self.input] == logic.KX_INPUT_JUST_ACTIVATED:
+							KEY = True
 
 		## Returns ##
 		if INPUT == logic.KX_INPUT_NONE:
@@ -229,6 +241,7 @@ class KeyBase:
 
 		return 0.0
 
+
 class MouseLook:
 
 	def __init__(self, SPEED, SMOOTH=10):
@@ -236,8 +249,9 @@ class MouseLook:
 		self.update(SPEED, SMOOTH)
 		self.center()
 
-	def update(self, SPEED, SMOOTH=None):
-		self.input = SPEED
+	def update(self, SPEED=None, SMOOTH=None):
+		if SPEED != None:
+			self.input = SPEED
 		if SMOOTH != None:
 			self.smoothing = int(SMOOTH)
 
