@@ -28,9 +28,6 @@ from bge import logic, events
 import PY.input as input
 
 
-# Update Joysticks - This lives on the first scene
-logic.getSceneList()[0].pre_draw.append(input.GAMEPADDER)
-
 # Change Exit Key
 logic.setExitKey(events.PAUSEKEY)
 
