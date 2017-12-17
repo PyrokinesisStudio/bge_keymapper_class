@@ -40,9 +40,7 @@ for JOYID in range(len(logic.joysticks)):
 			events.JOYBUTTONS[JOYID]["Axis"][AXIS] = {"NEG":0, "POS":0, "SLIDER":0, "VALUE":0.0}
 
 
-print("input.py Imported")
-
-
+## Base Class for Inputs ##
 class KeyBase:
 
 	GROUP = "Default"
@@ -242,6 +240,7 @@ class KeyBase:
 		return 0.0
 
 
+## Mouse Look Base Class ##
 class MouseLook:
 
 	def __init__(self, SPEED, SMOOTH=10):
@@ -298,6 +297,7 @@ class MouseLook:
 		return (X,Y)
 
 
+## Updates Joystick Values ##
 def GAMEPADDER():
 
 	for JOYID in events.JOYBUTTONS:
@@ -366,5 +366,8 @@ def GAMEPADDER():
 			print("GAMEPAD ERROR:", JOYID, "Not Found!")
 
 
+# Update Joysticks - This lives on the first scene
+logic.getSceneList()[0].pre_draw.append(GAMEPADDER)
 
+print("input.py Imported")
 
