@@ -55,8 +55,8 @@ class KeyBase:
 		elif logic.joysticks[JOYINDEX] == None or KEY == "NONE":
 			JOYINDEX = None
 		else:
-			if JOYAXIS != None:
-				if JOYAXIS >= len(logic.joysticks[JOYINDEX].axisValues):
+			if JOYAXIS[0] != None:
+				if JOYAXIS[0] >= len(logic.joysticks[JOYINDEX].axisValues):
 					JOYINDEX = None
 			if JOYBUTTON != None:
 				if JOYBUTTON >= logic.joysticks[JOYINDEX].numButtons:
