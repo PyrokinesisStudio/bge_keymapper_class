@@ -97,7 +97,7 @@ class KeyBase:
 	def sceneGamepadCheck(self):
 		if GAMEPADDER not in logic.getSceneList()[0].pre_draw:
 			print("NOTICE: GAMEPADDER() Scene Fix -", logic.getSceneList()[0].name)
-			RESET_GAMEPAD()
+			GAMEPADDER()
 			logic.getSceneList()[0].pre_draw.append(GAMEPADDER)
 			return False
 
