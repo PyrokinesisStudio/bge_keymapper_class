@@ -96,9 +96,9 @@ class KeyBase:
 
 	def sceneGamepadCheck(self):
 		if GAMEPADDER not in logic.getSceneList()[0].pre_draw:
+			logic.getSceneList()[0].pre_draw.append(GAMEPADDER)
 			print("NOTICE: GAMEPADDER() Scene Fix -", logic.getSceneList()[0].name)
 			GAMEPADDER()
-			logic.getSceneList()[0].pre_draw.append(GAMEPADDER)
 			return False
 
 		return True
@@ -376,9 +376,6 @@ def RESET_GAMEPAD():
 		for AXIS in events.JOYBUTTONS[JOYID]["Axis"]:
 			events.JOYBUTTONS[JOYID]["Axis"][AXIS] = {"NEG":0, "POS":0, "SLIDER":0, "VALUE":0.0}
 
-
-# Update Joysticks - This lives on the first scene
-logic.getSceneList()[0].pre_draw.append(GAMEPADDER)
 
 print("input.py Imported")
 
